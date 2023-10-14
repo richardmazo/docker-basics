@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    image: netecdev/stackpoc:stack
+    ports:
+      - target: 8080
+        published: 8000
+    networks:
+      - net_stackpoc
+    volumes:
+      - type: volume
+        source: vol_stackpoc
+        target: /code
+  redis:
+    image: redis:alpine
+    networks:
+      - net_stackpoc
+
+networks:
+  net_stackpoc:
+
+volumes:
+  vol_stackpoc:

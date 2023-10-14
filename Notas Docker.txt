@@ -1,0 +1,78 @@
+Dockers
+Proyecto de código abierto que permite automatizar el despliegue de aplicaciones dentro de contenedores o CONTAINERS.
+- El container es un contenedor que empaqueta aplicaciones de todo tipo, es ligero. Permite poner dentro de una caja (contenedor) todo lo necesario
+para que una aplicación funcione: el código de una aplicacion, librerias, dependencias del sistema.
+- El contenedor es como una caja cerrada y podemos cogerlo/lanzarlo/uasarlo en distintos entornos sin que tengamos que cambiar nada. 
+Es el propio contenedor el que encarga de mantener toda la infraestructura para el desarrollador/usuario final.
+
+El contenedor se va ejecutar en un servidor: El kernel. y encima los containers, el proceso de administra los containers es el daemon: proceso background de Docker.
+Cada contenedor tiene sus propios productos: Apache - python - ubunto.
+Otro contenedor con: Tomcat, mysql, debian. Y así.
+Estos contenedores aprovechan la capa del Kernel para utilizar de manera conjunta los recursos de la maquina donde está.
+
+Docker es un conjunto de contenedores que funciona sobre una capa de SO.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Diferencias respecto a las maquinas virtuales.
+VM: arquitectura: Hardware, SO, Hypervisor.
+Hypervisor: Software de virtualización y lo quehace es que mantiene maquinas virtuales totalmente independientes, donde cada vm está compuesto de su propio SO, 
+sus propias librerias y encima se ejecuta las aplicaciones. Es decir que son componentes monoliticos donde cada VM tiene su propia memoria y sus propiso recursos 
+de la maquina donde se aloja.
+
+Docker: arquitectura: Hardware - SO, Docker (Damemon, proceso que se ejecuta en la maquina), BIN/LIB(librerias).
+A diferencia de las VM los containers lo que hace es aprovechar los recursos del SO donde se alojan para poder compartir opciones,caracteristicas, binarios. Es decir,
+los contenedores no utilizan sus propios SO, BIN/LIB, si no que la comparten con los SO host, es decir, con la maquina con que están alojadas. Esto permite disponer
+de entornos mucho más bajos de recursos de memoria, procesadores, etc. Porque los contenedores a diferencia de las maquinas virtuales hacen uso compartido de dichos 
+recursos.
+Los containers son como procesos que se ejecutan bajo el SO, que son como Capsulas independientes unos de otros pero que también comparten recursos. 
+(Procesos que comparten recursos).
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Venatajas.
+Modernizar aplicaciones.
+DevOps.
+Facil integración con la  nube.
+Solución ideal para microservicios.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Versiones de Docker:
+-Community Edition (CE). SO: MAC, WIN10, Ubuntu, Fedora, DEbian, Centos
+-Enterprise Edition (EE): Basic, Standard, Advanced. SO: Windows, Red Hat, Ubuntu, Suse Enterprise, Centos, Oracle Linux.
+
+Plataformas Cloud: AWS, Microsoft Azure, IBM Cloud...
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Volúmenes en Docker
+
+Es un mecanismo para persistir la información y los datos en los contenedores de Docker.
+Es un componente que es administrado totalmente por Docker y no por el SO, se administra con comandos de Docker y es más fácil de migrar y de sacar BackUp.
+
+Los volumenes parten de que yo tengo un contenedor y dentro el FileSystem del contenedor. Yo puedo tener un directorio /datos  y en vez de tener los datos dentro del 
+contenedor, lo tenga en un volumen separado. Así, cuando acceda a /datos estoy accediendo en realidad a  unos datos o recursos que están afuera (el volumen).
+Estos recursos se pueden compartir entre el HOST y el contenedor, y entre diferentes contenedores.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Kubernetes
+
+POD: Grupo de uno o más contenedores.
+Se ejecutan en un nodo., un grupo de nodos se denomina clouster.
+
+Qué es el escalamiento
+Capacidad para que la app se adapte segun el numero de usuarios. Lo hay vertical y horizontal.
+Vertical: CPU y RAM.
+Horizontal: Agregar más instancias.
+
+Resiliencia
+
+Probes: Liveness - Readiness
+
+GitHub: http-performance-analyzer
+
+
+
+

@@ -1,0 +1,32 @@
+docker run --rm -ti -v $PWD:/test -w /test   -v /home/elvis/.minikube/ca.crt:/ca.crt -v /usr/local/bin/kubectl:/usr/bin/kubectl alpine sh
+docker run --rm -ti -v "%cd%":/test -w /test -v C://Users//Richa//.minikube//ca.crt  -v /usr/bin/kubectl:/usr/bin/kubectl alpine sh
+docker run --rm -ti -v $PWD:/test -w /test    -v /Users/denisrocher/.minikube/ca.crt:/ca.crt -v /usr/bin/kubectl:/usr/bin/kubectl alpine sh
+
+
+## RBAC
+minikube start --vm-driver=none  --extra-config=apiserver.authorization-mode=RBAC
+
+## Create keys and sign
+openssl genrsa -out ricardo.key 2048
+openssl req -new -key ricardo.key -out ricardo.csr -subj "/CN=ricardo/O=dev"
+sudo openssl x509 -req -in ricardo.csr -CA /root/.minikube/ca.crt -CAkey /root/.minikube/ca.key -CAcreateserial -out ricardo.crt -days 500
+openssl x509 -in  ricardo.crt  -noout -text
+
+## Isolated env
+kubectl config view  | grep server
+docker run --rm -ti -v $PWD:/test -w /test  -v /root/.minikube/ca.crt:/ca.crt -v /usr/bin/kubectl:/usr/bin/kubectl alpine sh
+
+## Configure kubectl for user
+kubectl config set-cluster minikube --server=https://192.168.1.140:8443 --certificate-authority=/ca.crt
+kubectl config set-credentials ricardo --client-certificate=ricardo.crt --client-key=ricardo.key
+kubectl config set-context ricardo --cluster=minikube --user=ricardo
+kubectl config use-context ricardo
+
+
+kubectl config set-cluster minikube --server=https://127.0.0.1:61656 --certificate-authority=C://Users//Richa//.minikube//ca.crt
+
+minikube start --extra-config=apiserver.Authorization.Mode=RBAC --insecure-registry 0.0.0.0/0
+
+minikube start --extra-config=apiserver.authorization-mode=RBAC --insecure-registry 0.0.0.0/
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.4.0/deploy/static/provider/baremetal/deploy.yaml
